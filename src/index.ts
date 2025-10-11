@@ -2,7 +2,8 @@ import "dotenv/config";
 import express, { Application, Router, Request, Response } from "express";
 import cors from "cors";
 import { dbConnection } from "./database/dbConnection";
-import { glossarioRoutes } from "./routes/glossarioLegislativo.routes";
+import { glossarioRoutes } from "./routes/GlossarioLegislativo.routes";
+import { proposicoesRoutes } from "./routes/Proposicoes.routes";
 
 const url = process.env.MONGO_URL!;
 
@@ -17,10 +18,10 @@ router.get("/", (req: Request, res: Response) => {
   res.send("Bem-vinde ao: comoVotou?");
 });
 
-
 app.use(router);
 
 app.use(glossarioRoutes);
+app.use(proposicoesRoutes);
 
 dbConnection(url).then(() => {
   app.listen(3000, () => {
