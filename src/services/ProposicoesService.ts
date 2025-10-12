@@ -1,6 +1,5 @@
 import { ProposicoesRepository } from "../database/ProposicoesRepository";
 
-
 export class ProposicoesService {
   constructor(private repository: ProposicoesRepository) { }
 
@@ -9,4 +8,24 @@ export class ProposicoesService {
 
     return proposicoes;
   }
+
+  public async getById(id: string) {
+    const proposicao = await this.repository.findById(id);
+
+    if (!proposicao) {
+      throw new Error(`Proposição com id ${id} não encontrada`);
+    }
+
+    const votacoes = await this.repository.findVotacoesByProposicao(id);
+
+    const votacoesComVotos = await Promise.all(
+      votacoes.map(async (votacao) => {
+        const votos = await this.repository.findVotosByVotacao(votacao.id);
+        return { ...votacao, votos };
+      })
+    );
+
+    return { ...proposicao, votacoes: votacoesComVotos };
+  }
+
 }

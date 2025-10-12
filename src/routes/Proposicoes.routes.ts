@@ -13,4 +13,8 @@ router.get("/proposicoes", async (req, res) => {
   await controller.getAllProposicoes(req, res);
 });
 
+router.get("/proposicoes/:id", async (req, res) => {
+  await controller.getProposicaoById(req, res);
+})
+
 export { router as proposicoesRoutes }
