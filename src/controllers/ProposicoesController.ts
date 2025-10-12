@@ -7,8 +7,10 @@ export class ProposicoesController {
 
   public async getAllProposicoes(req: Request, res: Response) {
 
+    const { pagina, itens } = req.query;
+
     try {
-      const proposicoes = await this.service.getAll();
+      const proposicoes = await this.service.getAll(pagina as string, itens as string);
       return res.status(200).json(proposicoes);
 
     } catch (error: any) {
