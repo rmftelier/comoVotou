@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { GlossarioLegislativoService } from "../services/GlossarioLegislativoService";
+import { GlossarioLegislativoService } from "@core/services/GlossarioLegislativoService";
 
 export class GlossarioLegislativoController {
   constructor(private service: GlossarioLegislativoService) { }

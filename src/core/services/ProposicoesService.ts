@@ -1,7 +1,7 @@
-import { ProposicoesRepository } from "../database/ProposicoesRepository";
+import { IProposicoesRepository } from "@core/repositories/IProposicoesRepository";
 
 export class ProposicoesService {
-  constructor(private repository: ProposicoesRepository) { }
+  constructor(private repository: IProposicoesRepository) { }
 
   public async getAll(pagina: string, itens: string) {
     const proposicoes = await this.repository.findAll(pagina, itens);
@@ -19,7 +19,7 @@ export class ProposicoesService {
     const votacoes = await this.repository.findVotacoesByProposicao(id);
 
     const votacoesComVotos = await Promise.all(
-      votacoes.map(async (votacao) => {
+      votacoes.map(async (votacao: { id: string; }) => {
         const votos = await this.repository.findVotosByVotacao(votacao.id);
         return { ...votacao, votos };
       })

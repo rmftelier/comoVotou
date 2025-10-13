@@ -1,3 +1,5 @@
+
+
 export interface Proposicao {
   id: number;
   uri: string;

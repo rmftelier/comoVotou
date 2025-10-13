@@ -11,7 +11,22 @@
     "resolveJsonModule": true,
     "declaration": true,
     "declarationMap": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@app/*": [
+        "app/*"
+      ],
+      "@core/*": [
+        "core/*"
+      ],
+      "@infra/*": [
+        "infra/*"
+      ],
+      "@routes/*": [
+        "app/routes/*"
+      ]
+    }
   },
   "include": [
     "src",

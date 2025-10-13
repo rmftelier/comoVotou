@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ProposicoesService } from "../services/ProposicoesService";
+import { ProposicoesService } from "@core/services/ProposicoesService";
 
 export class ProposicoesController {
 

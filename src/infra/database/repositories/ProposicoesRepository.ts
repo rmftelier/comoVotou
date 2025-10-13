@@ -1,15 +1,15 @@
-import api from "../services/api";
-import { ProposicoesResponse, ProposicaoResponse } from "../models/Proposicoes";
-import { Votacao, Voto } from "../models/Votacoes";
+import api from "@infra/api/api";
+import { ProposicoesResponse, ProposicaoResponse } from "@core/models/Proposicoes";
+import { Votacao, Voto } from "@core/models/Votacoes";
+import { IProposicoesRepository } from "@core/repositories/IProposicoesRepository";
 
-export class ProposicoesRepository {
-
+export class ProposicoesRepository implements IProposicoesRepository{
 
   public async findAll(pagina: string, itens: string): Promise<ProposicoesResponse[]> {
 
     try {
       const response = await api.get<ProposicoesResponse[]>(
-        `/proposicoes?pagina=${pagina}&itens=${itens}`
+        `/proposicoes?pagina=${pagina ?? "1"}&itens=${itens ?? "15"}`
       );
 
       return response.data;
@@ -21,7 +21,7 @@ export class ProposicoesRepository {
   };
 
 
-  public async findById(id: string) {
+  public async findById(id: string): Promise<any>{
     try {
       const response = await api.get<ProposicaoResponse[]>(`/proposicoes/${id}`);
 
