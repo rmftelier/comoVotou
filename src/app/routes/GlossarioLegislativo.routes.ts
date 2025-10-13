@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { GlossarioLegislativoRepository } from "../database/GlossarioLegislativoRepository";
-import { GlossarioLegislativoController } from "../controllers/GlossarioLegislativoController";
-import { GlossarioLegislativoService } from "../services/GlossarioLegislativoService";
+import { GlossarioLegislativoRepository } from "@infra/database/repositories/GlossarioLegislativoRepository";
+import { GlossarioLegislativoController } from "@app/controllers/GlossarioLegislativoController";
+import { GlossarioLegislativoService } from "@core/services/GlossarioLegislativoService";
 
 const router = Router();
 

@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { ProposicoesController } from "../controllers/ProposicoesController";
-import { ProposicoesService } from "../services/ProposicoesService";
-import { ProposicoesRepository } from "../database/ProposicoesRepository";
+import { ProposicoesController } from "@app/controllers/ProposicoesController";
+import { ProposicoesService } from "@core/services/ProposicoesService";
+import { ProposicoesRepository } from "@infra/database/repositories/ProposicoesRepository";
 
 const router = Router();
 
@@ -12,5 +12,9 @@ const controller = new ProposicoesController(service);
 router.get("/proposicoes", async (req, res) => {
   await controller.getAllProposicoes(req, res);
 });
+
+router.get("/proposicoes/:id", async (req, res) => {
+  await controller.getProposicaoById(req, res);
+})
 
 export { router as proposicoesRoutes }

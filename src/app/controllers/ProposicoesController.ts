@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ProposicoesService } from "../services/ProposicoesService";
+import { ProposicoesService } from "@core/services/ProposicoesService";
 
 export class ProposicoesController {
 
@@ -18,4 +18,15 @@ export class ProposicoesController {
     }
   }
 
+  public async getProposicaoById(req: Request, res: Response) {
+    const { id } = req.params;
+
+    try {
+      const proposicao = await this.service.getById(id);
+      return res.status(200).json(proposicao);
+
+    } catch (error: any) {
+      return res.status(404).json({ message: error.message })
+    }
+  }
 }

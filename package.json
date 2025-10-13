@@ -4,9 +4,9 @@
   "description": "Plataforma web para acompanhar proposições e votações no Congresso Nacional, com detalhamento dos votos dos deputados e glossário de termos legislativos.",
   "main": "index.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && tsc-alias",
     "start": "node dist/index.js",
-    "dev": "ts-node-dev --respawn src/index.ts"
+    "dev": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   "devDependencies": {
     "@types/axios": "^0.9.36",
     "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.9.3"
   },
   "dependencies": {
