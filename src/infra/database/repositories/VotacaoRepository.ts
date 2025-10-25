@@ -4,11 +4,9 @@ import { VotosResponse } from "@core/models/Votacao";
 
 export class VotacaoRepository implements IVotacaoRepository {
 
-    public async findVotosByVotacao(id: string): Promise<any> {
+    public async findVotosByVotacao(id: string): Promise<VotosResponse> {
 
         const response = await api.get<VotosResponse>(`votacoes/${id}/votos`);
-
-        console.log(response.data);
 
         const filtered: VotosResponse = {
             dados: response.data.dados.map((voto) => ({

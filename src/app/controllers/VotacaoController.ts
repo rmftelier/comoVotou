@@ -9,7 +9,6 @@ export class VotacaoController {
 
     try {
       const votos = await this.service.getVotosById(id);
- 
       return res.status(200).json(votos);
 
     } catch (error: any) {
