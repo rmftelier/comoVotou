@@ -9,7 +9,8 @@ export class GlossarioLegislativoRepository implements IGlossarioLegislativoRepo
       id: doc.id,
       sigla: doc.sigla,
       termo: doc.termo,
-      descricao: doc.descricao
+      descricao: doc.descricao,
+      url: doc.url
     };
   };
 

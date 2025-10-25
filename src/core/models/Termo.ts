@@ -3,4 +3,5 @@ export interface Termo {
   sigla: string, 
   termo: string, 
   descricao: string
+  url: string
 }
