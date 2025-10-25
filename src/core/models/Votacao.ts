@@ -23,3 +23,7 @@ export interface VotosResponse {
   dados: Voto[];
 }
 
+export interface VotacaoResponse {
+  dados: Votacao[];
+}
+

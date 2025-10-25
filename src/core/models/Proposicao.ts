@@ -42,6 +42,5 @@ export interface ProposicaoCompleta {
 
 
 export interface ProposicaoResponse {
-  dados: ProposicaoCompleta[];
-  links: Links[];
+  dados: ProposicaoCompleta;
 }

@@ -23,7 +23,7 @@ export class ProposicaoController {
 
     try {
       const proposicao = await this.service.getById(id);
-      console.log(proposicao);
+
       return res.status(200).json(proposicao);
 
     } catch (error: any) {
