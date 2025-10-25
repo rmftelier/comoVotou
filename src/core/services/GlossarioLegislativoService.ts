@@ -5,8 +5,12 @@ export class GlossarioLegislativoService {
 
   constructor(private repository: IGlossarioLegislativoRepository) { }
 
-  public async getAll(): Promise<Termo[]>{
+  public async getAll(): Promise<Termo[]> {
     const termos = await this.repository.findAll();
+
+    if (!termos) {
+      throw new Error(`Termos Legislativos não encontrados.`);
+    }
 
     return termos;
   }

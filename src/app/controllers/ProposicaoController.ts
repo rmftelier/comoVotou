@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { ProposicoesService } from "@core/services/ProposicoesService";
+import { ProposicaoService } from "@core/services/ProposicaoService";
 
-export class ProposicoesController {
+export class ProposicaoController {
 
-  constructor(private service: ProposicoesService) { }
+  constructor(private service: ProposicaoService) { }
 
   public async getAllProposicoes(req: Request, res: Response) {
 
@@ -23,10 +23,24 @@ export class ProposicoesController {
 
     try {
       const proposicao = await this.service.getById(id);
+
       return res.status(200).json(proposicao);
 
     } catch (error: any) {
       return res.status(404).json({ message: error.message })
+    }
+  }
+
+
+  public async getVotacoesByProposicao(req: Request, res: Response) {
+    const { id } = req.params;
+
+    try {
+      const votacoes = await this.service.getVotacaoById(id);
+
+      return res.status(200).json(votacoes);
+    } catch (error: any) {
+      return res.status(404).json({ message: error.message });
     }
   }
 }
