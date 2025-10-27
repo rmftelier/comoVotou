@@ -44,7 +44,7 @@ O sistema utiliza a API [Dados Abertos da Câmara dos Deputados](https://dadosab
      npm install
     ```
 
-4. No arquivo `.env.example` na raiz do projeto, modifique-o com as variável necessária:
+4. No arquivo `.env.example` na raiz do projeto, adicione a variável necessária e renomeie-o para `.env`:
 
     ```env
      MONGO_URL=mongodb+srv://<username>:<password>@<cluster-url>/<dbname>?retryWrites=true&w=majority&appName=<appname>
