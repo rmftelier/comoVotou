@@ -1,25 +1,24 @@
-import { useState } from 'react'
-import './App.css'
+import { Box, Heading } from '@chakra-ui/react'
+import Home from "@/pages/Home/Home.tsx";
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-      <h1>Como Votou?</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      w="100vw"
+      h="100vh"
+      bg="white"
+    >
+      <Box >
+        <Heading>Como Votou?</Heading>
+        <Home />
+      </Box>
+    </Box >
   )
 }
 
-export default App
+export default App;
