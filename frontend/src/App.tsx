@@ -1,5 +1,7 @@
-import { Box, Heading } from '@chakra-ui/react'
+import { Box} from '@chakra-ui/react'
 import Home from "@/pages/Home/Home.tsx";
+import Header from "@/components/header/Header.tsx";
+import Footer from './components/footer/Footer';
 
 function App() {
 
@@ -7,17 +9,14 @@ function App() {
     <Box
       display="flex"
       flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      w="100vw"
-      h="100vh"
-      bg="white"
+      minH="100vh"
     >
-      <Box >
-        <Heading>Como Votou?</Heading>
+      <Header />
+      <Box flex="1">
         <Home />
       </Box>
-    </Box >
+      <Footer />
+    </Box>
   )
 }
 
