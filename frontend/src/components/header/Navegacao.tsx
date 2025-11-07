@@ -1,14 +1,14 @@
 import { JSX } from "react";
-import { Box, BoxProps } from "@chakra-ui/react";
+import { Container, BoxProps } from "@chakra-ui/react";
 
 const Navegacao: React.FC<BoxProps> = ({
   children,
   p = '5',
-  h = '20',
+  h = '25',
   ...rest
 }): JSX.Element => {
   return (
-    <Box
+    <Container
       as="nav"
       position="sticky"
       top="0"
@@ -16,11 +16,12 @@ const Navegacao: React.FC<BoxProps> = ({
       borderBottomWidth="1px"
       p={p}
       h={h}
+      maxW="100%"
       bg="gray.100"
       {...rest}
     >
       {children}
-    </Box>
+    </Container>
   )
 };
 

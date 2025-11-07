@@ -7,14 +7,13 @@ import { BoxProps, Image, Heading, Button, HStack } from "@chakra-ui/react";
 import { RiHomeLine, RiBookmarkLine } from "react-icons/ri";
 
 const Header: React.FC<BoxProps> = (props) => {
-
   return (
     <Navegacao {...props}>
       <Area>
         <LeftHeader>
           <HStack gap={3}>
             <Image
-              src="../../../public/logo.png"
+              src="/logo.png"
               maxH="50px"
               maxW="50px"
             />
@@ -33,7 +32,7 @@ const Header: React.FC<BoxProps> = (props) => {
         </RightHeader>
       </Area>
     </Navegacao>
-  )
+  );
 };
 
 export default Header;

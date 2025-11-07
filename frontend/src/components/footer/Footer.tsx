@@ -1,26 +1,33 @@
-import { JSX } from "react";
-import { Stack, StackProps, Text, Link } from "@chakra-ui/react";
+import { Container, HStack, Icon, Link, Stack } from '@chakra-ui/react';
+import { SiGithub, SiLinkedin } from 'react-icons/si';
+import { Copyright } from "./copyright.tsx";
 
-const Footer: React.FC<StackProps> = ({
-  p = '5',
-  h = '20',
-  ...rest
-}): JSX.Element => {
-  return (
-    <Stack
-      as="footer"
-      mt="auto"
-      alignItems="center"
-      borderTopWidth="1px"
-      p={p}
-      h={h}
-      bg="gray.100"
-      {...rest}
-    >
-      <Text textStyle="sm"> ©2025 Como Votou? - Desenvolvido por <Link href="https://github.com/rmftelier">Roberta Meyrelles França</Link></Text>
-      <Text textStyle="sm">Dados fornecidos pela API Dados Abertos da Câmara dos Deputados</Text>
+const Footer = () => (
+  <Container
+    as="footer"
+    py={{ base: '5', md: '12' }}
+    bg="gray.100"
+    maxWidth="100%"
+    borderTopWidth="1px"
+  >
+    <Stack gap="6" alignItems="center">
+      <Copyright />
+      <Stack direction="row" justify="space-between" align="center">
+        <HStack gap="4">
+          {socialLinks.map(({ href, icon }, index) => (
+            <Link key={index} href={href} colorPalette="gray">
+              <Icon size="md">{icon}</Icon>
+            </Link>
+          ))}
+        </HStack>
+      </Stack>
     </Stack>
-  )
-};
+  </Container>
+);
+
+const socialLinks = [
+  { href: 'https://github.com/rmftelier', icon: <SiGithub /> },
+  { href: 'https://www.linkedin.com/in/roberta-meyrelles/', icon: <SiLinkedin /> },
+];
 
 export default Footer; 

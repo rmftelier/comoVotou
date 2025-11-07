@@ -1,11 +1,16 @@
-import { Stack, Heading } from "@chakra-ui/react";
+import { Stack, Heading} from "@chakra-ui/react";
+
 
 const Home = () => {
   return (
-    <Stack>
-      <p> Página Inicial </p>
-      <Heading>Proposições Legislativas</Heading>
-      <Heading>Acompanhe o que está sendo discutido no Congresso Nacional.</Heading>
+    <Stack
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      p="50px"
+    >
+      <Heading size="3xl">Proposições Legislativas</Heading>
+      <Heading size="md">Acompanhe o que está sendo discutido no Congresso Nacional.</Heading>
     </Stack>
   );
 };
