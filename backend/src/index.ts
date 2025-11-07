@@ -3,8 +3,10 @@ import app from "@app/app";
 
 const url = process.env.MONGO_URL!;
 
+const PORT = process.env.PORT || 8080;
+
 dbConnection(url).then(() => {
-  app.listen(3000, () => {
-    console.log("🚀 O servidor está sendo executado na porta: 3000");
+  app.listen(PORT, () => {
+    console.log(`🚀 O servidor está sendo executado na porta: ${PORT}`);
   });
 });
