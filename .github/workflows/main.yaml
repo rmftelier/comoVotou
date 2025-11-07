@@ -1,0 +1,41 @@
+name: Deploy to GCP
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches: 
+      - main
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    permissions:
+      contents: "read"
+      id-token: "write"
+
+    env:
+      MONGO_URL: ${{ secrets.MONGO_URL }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: 🔒 Google Auth
+        id: auth
+        uses: "google-github-actions/auth@v2"
+        with:
+          credentials_json: "${{ secrets.GCP_SA_KEY }}"
+
+      - name: 🏗️ Deploy to Cloud Run
+        id: deploy
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          service: ${{ secrets.SERVICE_NAME }}
+          region: ${{ secrets.SERVICE_REGION }}
+          source: ./backend
+
+      - name: 📤 Show Output
+        run: echo ${{ steps.deploy.outputs.url }}
