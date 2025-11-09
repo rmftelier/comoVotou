@@ -13,7 +13,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<Home />} />
-      <Route path="/proposicao/:id" element={<Proposicao />} /> {/* Detalhe da proposição dinâmica*/}
+      <Route path="/proposicoes/:id" element={<Proposicao />} /> {/* Detalhe da proposição dinâmica*/}
       <Route path="/glossario" element={<Glossario />} />
     </>
   )
