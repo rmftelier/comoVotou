@@ -1,24 +1,26 @@
-import { Box, Heading } from '@chakra-ui/react'
-import Home from "@/pages/Home/Home.tsx";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider
+} from 'react-router-dom'
 
-function App() {
+import Home from "@/pages/Home/Home"
+import Proposicao from '@/pages/Proposicao/Proposicao';
+import Glossario from '@/pages/Glossario/Glossario';
 
-  return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      w="100vw"
-      h="100vh"
-      bg="white"
-    >
-      <Box >
-        <Heading>Como Votou?</Heading>
-        <Home />
-      </Box>
-    </Box >
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
+      <Route path="/" element={<Home />} />
+      <Route path="/proposicoes/:id" element={<Proposicao />} /> {/* Detalhe da proposição dinâmica*/}
+      <Route path="/glossario" element={<Glossario />} />
+    </>
   )
-}
+);
+
+const App = () => {
+  return <RouterProvider router={router} />
+};
 
 export default App;
