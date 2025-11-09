@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import {
   Box,
   Heading,
@@ -41,12 +41,12 @@ const Proposicao = () => {
   if (isLoading)
     return (
       <>
-      
+
         <Box p={6} textAlign="center">
           <Spinner size="xl" />
           <Text mt={3}>Carregando proposição...</Text>
         </Box>
-     
+
       </>
     );
 
@@ -56,7 +56,7 @@ const Proposicao = () => {
         <Box p={6} textAlign="center">
           <Text color="red.500">Erro ao carregar proposição.</Text>
         </Box>
-     
+
       </>
     );
 

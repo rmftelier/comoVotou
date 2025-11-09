@@ -1,7 +1,7 @@
-import { Box, Flex, Heading, Text, SimpleGrid, Spinner, Link, Button} from "@chakra-ui/react";
+import { Box, Flex, Heading, Text, SimpleGrid, Spinner,  Button} from "@chakra-ui/react";
 import { useGetAllProposicoes } from "@/api/queries/proposicao";
 import { useState } from "react";
-
+import { Link } from "react-router";
 
 const Home = () => {
 
@@ -78,12 +78,7 @@ const Home = () => {
                 {prop.ementa}
               </Text>
               <Link
-                color="blue.600"
-                fontWeight="semibold"
-                fontSize="sm"
-                display="inline-flex"
-                alignItems="center"
-                _hover={{ textDecoration: "underline" }}
+                to={`/proposicoes/${prop.id}`}
               >
                 Ver detalhes →
               </Link>

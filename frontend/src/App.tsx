@@ -1,6 +1,6 @@
 import { Layout } from "./components";
 import { Routes, Route } from 'react-router';
-import { PaginaInicial, ProposicaoDetalhada, Glossario} from "@/pages/index"; 
+import { PaginaInicial, ProposicaoDetalhada, Glossario } from "@/pages/index";
 
 
 const App = () => {
@@ -9,7 +9,9 @@ const App = () => {
       <Routes >
         <Route element={<Layout />}>
           <Route path="/" element={<PaginaInicial />} />
-          <Route path="/proposicoes/:id" element={<ProposicaoDetalhada />} />
+          <Route path="/proposicoes" >
+            <Route path=":id" element={<ProposicaoDetalhada />} />
+          </Route>
           <Route path="/glossario" element={<Glossario />} />
         </Route>
       </Routes>
