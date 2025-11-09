@@ -1,26 +1,22 @@
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-  RouterProvider
-} from 'react-router-dom'
+import { Layout } from "./components";
+import { Routes, Route } from 'react-router';
+import { PaginaInicial, ProposicaoDetalhada, Glossario } from "@/pages/index";
 
-import Home from "@/pages/Home/Home"
-import Proposicao from '@/pages/Proposicao/Proposicao';
-import Glossario from '@/pages/Glossario/Glossario';
-
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <>
-      <Route path="/" element={<Home />} />
-      <Route path="/proposicoes/:id" element={<Proposicao />} /> {/* Detalhe da proposição dinâmica*/}
-      <Route path="/glossario" element={<Glossario />} />
-    </>
-  )
-);
 
 const App = () => {
-  return <RouterProvider router={router} />
-};
+  return (
+    <>
+      <Routes >
+        <Route element={<Layout />}>
+          <Route path="/" element={<PaginaInicial />} />
+          <Route path="/proposicoes" >
+            <Route path=":id" element={<ProposicaoDetalhada />} />
+          </Route>
+          <Route path="/glossario" element={<Glossario />} />
+        </Route>
+      </Routes>
+    </>
+  )
+}
 
 export default App;

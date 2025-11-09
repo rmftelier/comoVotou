@@ -1,9 +1,7 @@
-import { Box, Flex, Heading, Text, SimpleGrid, Spinner, Link, Button} from "@chakra-ui/react";
-import Header from "@/components/header/Header";
-import Footer from "@/components/footer/Footer";
+import { Box, Flex, Heading, Text, SimpleGrid, Spinner,  Button} from "@chakra-ui/react";
 import { useGetAllProposicoes } from "@/api/queries/proposicao";
 import { useState } from "react";
-
+import { Link } from "react-router";
 
 const Home = () => {
 
@@ -19,12 +17,12 @@ const Home = () => {
   if (isLoading) {
     return (
       <>
-        <Header />
+       
         <Flex justify="center" align="center" h="70vh" direction="column">
           <Spinner size="xl" />
           <Text mt={3}>Carregando proposições...</Text>
         </Flex>
-        <Footer />
+     
       </>
     );
   }
@@ -32,13 +30,13 @@ const Home = () => {
   if (isError) {
     return (
       <>
-        <Header />
+      
         <Box textAlign="center" py={10}>
           <Text color="red.500">
             Erro ao carregar proposições: {error?.message || "Erro desconhecido"}
           </Text>
         </Box>
-        <Footer />
+      
       </>
     );
   }
@@ -46,7 +44,7 @@ const Home = () => {
 
   return (
     <>
-      <Header />
+     
       <Box px={10} py={12} minH="100vh" bg="gray.50">
         <Box textAlign="center" mb={10}>
           <Heading size="2xl">Proposições Legislativas</Heading>
@@ -80,12 +78,7 @@ const Home = () => {
                 {prop.ementa}
               </Text>
               <Link
-                color="blue.600"
-                fontWeight="semibold"
-                fontSize="sm"
-                display="inline-flex"
-                alignItems="center"
-                _hover={{ textDecoration: "underline" }}
+                to={`/proposicoes/${prop.id}`}
               >
                 Ver detalhes →
               </Link>
@@ -112,7 +105,7 @@ const Home = () => {
           </Button>
         </Flex>
       </Box>
-      <Footer />
+ 
     </>
   );
 };

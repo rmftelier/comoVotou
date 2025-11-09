@@ -5,7 +5,7 @@ import LeftHeader from "./LeftHeader";
 import RightHeader from "./RightHeader";
 import { BoxProps, Image, Heading, HStack, Button } from "@chakra-ui/react";
 import { RiBookmarkLine } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link } from "react-router"; 
 
 const Header: React.FC<BoxProps> = (props) => {
   return (
