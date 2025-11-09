@@ -3,8 +3,9 @@ import Navegacao from "./Navegacao";
 import Area from "./Area";
 import LeftHeader from "./LeftHeader";
 import RightHeader from "./RightHeader";
-import { BoxProps, Image, Heading, Button, HStack } from "@chakra-ui/react";
-import { RiHomeLine, RiBookmarkLine } from "react-icons/ri";
+import { BoxProps, Image, Heading, HStack, Button } from "@chakra-ui/react";
+import { RiBookmarkLine } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 const Header: React.FC<BoxProps> = (props) => {
   return (
@@ -17,16 +18,13 @@ const Header: React.FC<BoxProps> = (props) => {
               maxH="50px"
               maxW="50px"
             />
-            <Heading>Como Votou?</Heading>
+            <Heading><Link to="/">Como Votou?</Link></Heading>
           </HStack>
         </LeftHeader>
         <RightHeader>
           <HStack gap={3}>
             <Button>
-              <RiHomeLine /> Página Inicial
-            </Button>
-            <Button>
-              <RiBookmarkLine /> Glossário
+              <RiBookmarkLine /> <Link to="/glossario">Glossário</Link>
             </Button>
           </HStack>
         </RightHeader>
