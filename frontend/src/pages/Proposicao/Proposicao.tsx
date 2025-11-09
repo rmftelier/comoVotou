@@ -16,8 +16,6 @@ import {
   useGetVotacoesByProposicao,
   useGetVotosByVotacao,
 } from "../../api/queries/votacao";
-import Header from "@/components/header/Header";
-import Footer from "@/components/footer/Footer";
 
 const Proposicao = () => {
   const { id } = useParams<{ id: string }>();
@@ -43,23 +41,22 @@ const Proposicao = () => {
   if (isLoading)
     return (
       <>
-        <Header />
+      
         <Box p={6} textAlign="center">
           <Spinner size="xl" />
           <Text mt={3}>Carregando proposição...</Text>
         </Box>
-        <Footer />
+     
       </>
     );
 
   if (isError)
     return (
       <>
-        <Header />
         <Box p={6} textAlign="center">
           <Text color="red.500">Erro ao carregar proposição.</Text>
         </Box>
-        <Footer />
+     
       </>
     );
 
@@ -67,7 +64,6 @@ const Proposicao = () => {
 
   return (
     <>
-      <Header />
       <Box maxW="800px" mx="auto" p={6}>
         {/* DADOS PRINCIPAIS DA PROPOSIÇÃO */}
         <Flex justify="space-between" align="center" mb={6}>
@@ -169,7 +165,6 @@ const Proposicao = () => {
           </VStack>
         )}
       </Box>
-      <Footer />
     </>
   );
 };

@@ -4,17 +4,19 @@ import { ReactNode } from "react";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      retry: 1, 
-      refetchOnWindowFocus: false, 
+      retry: 1,
+      refetchOnWindowFocus: false,
       refetchOnReconnect: false
     },
   },
 })
 
-export function ReactQueryProvider({children}: { children: ReactNode}){
-  return(
+export const ReactQueryProvider = ({ children }: { children: ReactNode }) => {
+  return (
     <QueryClientProvider client={queryClient}>
       {children}
     </QueryClientProvider>
-  )
-}
+  );
+};
+
+export default ReactQueryProvider;

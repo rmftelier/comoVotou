@@ -1,7 +1,7 @@
-import Header from "@/components/header/Header";
-import Footer from "@/components/footer/Footer";
+
 import { useGetAllTermos } from "@/api/queries/glossario";
 import { Box, Text, Spinner, VStack } from "@chakra-ui/react";
+
 
 const Glossario = () => {
 
@@ -12,34 +12,33 @@ const Glossario = () => {
 
   if (isLoading) {
     return (
+
       <>
-        <Header />
         <Box p={4} textAlign="center">
           <Spinner size="xl" />
           <Text mt={2}>Carregando termos...</Text>
         </Box>
-        <Footer />
       </>
+
     )
   }
 
   if (isError) {
     return (
       <>
-        <Header />
+
         <Box p={4} textAlign="center">
           <Text color="red.500">
             Ocorreu um erro: {error?.message || "Erro ao carregar os dados."}
           </Text>
         </Box>
-        <Footer />
+
       </>
     );
   }
 
   return (
     <>
-      <Header />
       <Box p={6}>
         <Text fontSize="2xl" mb={4} fontWeight="bold">
           Glossário
@@ -62,7 +61,6 @@ const Glossario = () => {
           ))}
         </VStack>
       </Box>
-      <Footer />
     </>
   );
 };

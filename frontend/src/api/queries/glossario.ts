@@ -1,6 +1,5 @@
 import { comoVotouApi } from "../api";
 import { QueryKey, useQuery, UseQueryResult } from "@tanstack/react-query";
-import ApiError from "../apiError";
 
 //Interfaces e Tipos:-----------------------------------------------------------
 
@@ -22,10 +21,10 @@ export const getAllTermos = (): Promise<ITermo[]> =>
 export const getAllTermosQueryKey: QueryKey = ['/glossario'];
 
 //Querys:-----------------------------------------------------------------------
-export const useGetAllTermos = (): UseQueryResult<ITermo[], ApiError> =>
-  useQuery<ITermo[], ApiError>({
+export const useGetAllTermos = (): UseQueryResult<ITermo[]> =>
+  useQuery<ITermo[]>({
     queryKey: getAllTermosQueryKey,
     queryFn: getAllTermos,
     staleTime: Infinity
-});
+  });
 
