@@ -3,13 +3,13 @@ import { useGetAllTermos } from "@/api/queries/glossario";
 import {
   Box,
   Text,
-  Spinner,
   Input,
   Flex,
   Accordion,
   Link,
   VStack,
 } from "@chakra-ui/react";
+import { PageState } from "@/components/pageState";
 
 const Glossario = () => {
   const { data, isLoading, isError, error } = useGetAllTermos();
@@ -23,47 +23,11 @@ const Glossario = () => {
     );
   });
 
-  if (isLoading) {
-    return (
-      <Box
-        minH="calc(100vh - 160px)"
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <Spinner size="xl" />
-        <Text mt={2}>Carregando termos...</Text>
-      </Box>
-    );
-  }
-
-  if (isError) {
-    return (
-      <Box
-        minH="calc(100vh - 160px)"
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <Text color="red.500" fontSize="lg" textAlign="center">
-          Ocorreu um erro: {error?.message || "Erro ao carregar os dados."}
-        </Text>
-      </Box>
-    );
-  }
-
   return (
-    <Box
-      minH="calc(100vh - 160px)"
-      display="flex"
-      flexDirection="column"
-      justifyContent="flex-start"
-      maxW="1200px"
-      mx="auto"
-      px={{ base: 4, md: 8 }}
-      py={10}
+    <PageState
+      isLoading={isLoading}
+      isError={isError}
+      errorMessage={error?.message}
     >
       <Text fontSize="5xl" fontWeight="bold" textAlign="center" mb={2}>
         Glossário Legislativo
@@ -153,7 +117,7 @@ const Glossario = () => {
           </Text>
         </Flex>
       )}
-    </Box>
+    </PageState>
   );
 };
 
