@@ -9,7 +9,7 @@ import {
   Link,
   VStack,
 } from "@chakra-ui/react";
-import { PageState } from "@/components/pageState";
+import { PageState } from "@/components/PageState";
 
 const Glossario = () => {
   const { data, isLoading, isError, error } = useGetAllTermos();
