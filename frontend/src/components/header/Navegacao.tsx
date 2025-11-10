@@ -14,6 +14,7 @@ const Navegacao: React.FC<BoxProps> = ({
       top="0"
       width="100%"
       borderBottomWidth="1px"
+      zIndex="1"
       p={p}
       h={h}
       maxW="100%"
