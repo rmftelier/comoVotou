@@ -1,67 +1,159 @@
-
+import { useState } from "react";
 import { useGetAllTermos } from "@/api/queries/glossario";
-import { Box, Text, Spinner, VStack } from "@chakra-ui/react";
-
+import {
+  Box,
+  Text,
+  Spinner,
+  Input,
+  Flex,
+  Accordion,
+  Link,
+  VStack,
+} from "@chakra-ui/react";
 
 const Glossario = () => {
-
   const { data, isLoading, isError, error } = useGetAllTermos();
+  const [search, setSearch] = useState("");
 
-  console.log(data);
-
+  const filteredData = data?.filter((termo) => {
+    const query = search.toLowerCase();
+    return (
+      termo.termo.toLowerCase().includes(query) ||
+      termo.sigla.toLowerCase().includes(query)
+    );
+  });
 
   if (isLoading) {
     return (
-
-      <>
-        <Box p={4} textAlign="center">
-          <Spinner size="xl" />
-          <Text mt={2}>Carregando termos...</Text>
-        </Box>
-      </>
-
-    )
+      <Box
+        minH="calc(100vh - 160px)"
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Spinner size="xl" />
+        <Text mt={2}>Carregando termos...</Text>
+      </Box>
+    );
   }
 
   if (isError) {
     return (
-      <>
-
-        <Box p={4} textAlign="center">
-          <Text color="red.500">
-            Ocorreu um erro: {error?.message || "Erro ao carregar os dados."}
-          </Text>
-        </Box>
-
-      </>
+      <Box
+        minH="calc(100vh - 160px)"
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Text color="red.500" fontSize="lg" textAlign="center">
+          Ocorreu um erro: {error?.message || "Erro ao carregar os dados."}
+        </Text>
+      </Box>
     );
   }
 
   return (
-    <>
-      <Box p={6}>
-        <Text fontSize="2xl" mb={4} fontWeight="bold">
-          Glossário
-        </Text>
-        <VStack align="start">
-          {data?.map((termo) => (
-            <Box key={termo.id} borderWidth="1px" p={4} rounded="md" w="100%">
-              <Text fontWeight="bold">{termo.sigla} - {termo.termo} </Text>
-              <Text fontSize="sm" color="gray.600">
-                {termo.descricao}
-              </Text>
-              {termo.url && (
-                <Text
-                  as="a"
-                >
-                  Ver mais
-                </Text>
-              )}
-            </Box>
-          ))}
-        </VStack>
-      </Box>
-    </>
+    <Box
+      minH="calc(100vh - 160px)"
+      display="flex"
+      flexDirection="column"
+      justifyContent="flex-start"
+      maxW="1200px"
+      mx="auto"
+      px={{ base: 4, md: 8 }}
+      py={10}
+    >
+      <Text fontSize="5xl" fontWeight="bold" textAlign="center" mb={2}>
+        Glossário Legislativo
+      </Text>
+      <Text fontSize="2xl" textAlign="center" color="gray.600" mb={6}>
+        Entenda os Termos Técnicos do Processo Legislativo
+      </Text>
+
+      <Input
+        placeholder="Buscar por termo ou sigla..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        mb={8}
+        size="lg"
+        bg="gray.50"
+        _focus={{ borderColor: "blue.400", bg: "white" }}
+      />
+
+      {filteredData?.length ? (
+        <Accordion.Root multiple w="100%">
+          <VStack align="stretch" w="100%">
+            {filteredData.map((termo) => (
+              <Accordion.Item
+                key={termo.id}
+                value={termo.id.toString()}
+                borderWidth="1px"
+                borderColor="gray.200"
+                rounded="lg"
+                bg="white"
+                shadow="sm"
+                _hover={{ bg: "gray.50" }}
+                w="100%"
+              >
+                <Accordion.ItemTrigger px={5} py={4}>
+                  <Flex align="center" gap={4} flex="1">
+                    <Box
+                      w="50px"
+                      bg="green.500"
+                      color="white"
+                      fontWeight="bold"
+                      fontSize="md"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      rounded="md"
+                    >
+                      {termo.sigla}
+                    </Box>
+                    <Text textStyle="xl" flex="1">
+                      {termo.termo}
+                    </Text>
+                    <Accordion.ItemIndicator />
+                  </Flex>
+                </Accordion.ItemTrigger>
+
+                <Accordion.ItemContent>
+                  <Accordion.ItemBody px={5} pb={4}>
+                    <Text textStyle="lg" color="black">
+                      {termo.descricao}
+                    </Text>
+                    {termo.url && (
+                      <Flex justifyContent="flex-end" mt={2}>
+                        <Link
+                          href={termo.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          color="blue.500"
+                          fontWeight="medium"
+                          display="block"
+                          mt={4}
+                          _hover={{ textDecoration: "underline" }}
+                        >
+                          Ver mais
+                        </Link>
+                      </Flex>
+                    )}
+                  </Accordion.ItemBody>
+                </Accordion.ItemContent>
+              </Accordion.Item>
+            ))}
+          </VStack>
+        </Accordion.Root>
+      ) : (
+        <Flex justify="center" align="center" flex="1">
+          <Text textAlign="center" color="gray.500" fontSize="lg">
+            Nenhum termo encontrado.
+          </Text>
+        </Flex>
+      )}
+    </Box>
   );
 };
 
