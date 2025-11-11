@@ -4,18 +4,20 @@ import {
   Box,
   Heading,
   Text,
-  Spinner,
   Link,
   VStack,
   Flex,
-  CardBody,
+  SimpleGrid,
   Button,
+  Spinner,
+  Card,
 } from "@chakra-ui/react";
 import { useGetProposicaoById } from "../../api/queries/proposicao";
 import {
   useGetVotacoesByProposicao,
   useGetVotosByVotacao,
 } from "../../api/queries/votacao";
+import { PageState } from "../../components/PageState"; // ajuste o path se necessário
 
 const Proposicao = () => {
   const { id } = useParams<{ id: string }>();
@@ -25,109 +27,113 @@ const Proposicao = () => {
     data: proposicaoData,
     isLoading,
     isError,
+    error,
   } = useGetProposicaoById(proposicaoId);
+
   const {
     data: votacoesData,
     isLoading: votacoesLoading,
   } = useGetVotacoesByProposicao(id!);
 
   const [votacaoAberta, setVotacaoAberta] = useState<number | null>(null);
-
-  // Hook para buscar os votos da votação atualmente aberta
   const { data: votosData, isLoading: votosLoading } = useGetVotosByVotacao(
     votacaoAberta ? String(votacaoAberta) : ""
   );
 
-  if (isLoading)
-    return (
-      <>
-
-        <Box p={6} textAlign="center">
-          <Spinner size="xl" />
-          <Text mt={3}>Carregando proposição...</Text>
-        </Box>
-
-      </>
-    );
-
-  if (isError)
-    return (
-      <>
-        <Box p={6} textAlign="center">
-          <Text color="red.500">Erro ao carregar proposição.</Text>
-        </Box>
-
-      </>
-    );
-
   const prop = proposicaoData?.dados;
 
   return (
-    <>
-      <Box maxW="800px" mx="auto" p={6}>
-        {/* DADOS PRINCIPAIS DA PROPOSIÇÃO */}
-        <Flex justify="space-between" align="center" mb={6}>
-          <Heading size="lg">
-            {prop?.siglaTipo} {prop?.numero}/{prop?.ano}
+    <PageState
+      isLoading={isLoading}
+      isError={isError}
+      errorMessage={error?.message}
+      loadingMessage="Carregando proposição..."
+    >
+      <Box maxW="1000px" mx="auto">
+        <Link href="/" color="blue.500" mb={4} display="inline-block">
+          ← Voltar para a lista
+        </Link>
+
+        <Card.Root mb={6} shadow="sm" borderRadius="xl">
+          <Card.Body>
+            <Heading size="xl" mb={1}>
+              {prop?.siglaTipo} {prop?.numero}/{prop?.ano}
+            </Heading>
+            <Text fontSize="lg" color="gray.600">
+              {prop?.ementaDetalhada || prop?.ementa}
+            </Text>
+          </Card.Body>
+        </Card.Root>
+
+        <SimpleGrid columns={{ base: 1, md: 3 }} gap={6} mb={6}>
+          <InfoCard label="Data de Apresentação" value={prop?.dataApresentacao} />
+          <InfoCard label="Tipo" value={prop?.descricaoTipo} />
+          <InfoCard
+            label="Situação"
+            value={prop?.statusProposicao?.descricaoSituacao}
+          />
+          <InfoCard
+            label="Tramitação"
+            value={prop?.statusProposicao?.descricaoTramitacao}
+          />
+          <InfoCard label="Regime" value={prop?.statusProposicao?.regime} />
+        </SimpleGrid>
+
+        <Box mb={8}>
+          <Heading size="2xl" mb={3}>
+            Último Despacho
           </Heading>
-        </Flex>
-
-        <Text fontSize="md" color="gray.600" mb={4}>
-          {prop?.descricaoTipo}
-        </Text>
-
-        <VStack align="start">
-          <Text>{prop?.ementaDetalhada || prop?.ementa}</Text>
-          {prop?.statusProposicao && (
-            <Box>
-              <Text fontWeight="bold">Situação:</Text>
-              <Text color="gray.700">
-                {prop.statusProposicao.descricaoSituacao}
+          <Card.Root shadow="xs">
+            <Card.Body>
+              <Text>
+                {prop?.statusProposicao?.despacho ||
+                  "Nenhum despacho disponível."}
               </Text>
-              <Text mt={2} color="gray.600">
-                {prop.statusProposicao.descricaoTramitacao}
-              </Text>
-            </Box>
-          )}
-        </VStack>
+            </Card.Body>
+          </Card.Root>
+        </Box>
 
-        {prop?.texto && (
-          <Link href={prop.texto} color="blue.500" mt={4} display="block">
-            Ver texto completo
-          </Link>
-        )}
+        
+        <Box>
+          <Heading size="2xl" mb={3}>
+            Votações
+          </Heading>
 
-        {/* LISTA DE VOTAÇÕES */}
-        <Heading size="md" mb={4} mt={8}>
-          Votações
-        </Heading>
-
-        {votacoesLoading ? (
-          <Spinner />
-        ) : (
-          <VStack align="stretch">
-            {votacoesData?.dados?.length ? (
-              votacoesData.dados.map((votacao) => (
-                <Box key={votacao.id} borderWidth="1px" borderRadius="xl">
-                  <CardBody>
-                    <VStack align="start">
-                      <Heading size="sm">{votacao.descricao}</Heading>
-                      <Text fontSize="sm">🗓️ {votacao.data}</Text>
-                      <Text fontSize="sm">
-                        Resultado:{" "}
-                        <strong
-                          style={{
-                            color: votacao.aprovacao ? "green" : "red",
-                          }}
-                        >
-                          {votacao.aprovacao ? "Aprovada" : "Rejeitada"}
-                        </strong>
-                      </Text>
+          {votacoesLoading ? (
+            <Spinner />
+          ) : votacoesData?.dados?.length ? (
+            <VStack align="stretch">
+              {votacoesData.dados.map((votacao) => (
+                <Card.Root key={votacao.id} shadow="xs">
+                  <Card.Body>
+                    <Flex
+                      justify="space-between"
+                      align={{ base: "start", md: "center" }}
+                      direction={{ base: "column", md: "row" }}
+                      gap={2}
+                    >
+                      <Box>
+                        <Heading size="sm" mb={1}>
+                          {votacao.descricao}
+                        </Heading>
+                        <Text fontSize="sm" color="gray.600">
+                          🗓️ {votacao.data}
+                        </Text>
+                        <Text fontSize="sm" mt={1}>
+                          Resultado:{" "}
+                          <Text
+                            as="span"
+                            fontWeight="bold"
+                            color={votacao.aprovacao ? "green.500" : "red.500"}
+                          >
+                            {votacao.aprovacao ? "Aprovada" : "Rejeitada"}
+                          </Text>
+                        </Text>
+                      </Box>
 
                       <Button
-                        colorScheme="blue"
                         size="sm"
-                        alignSelf="flex-end"
+                        colorScheme="blue"
                         onClick={() =>
                           setVotacaoAberta(
                             votacaoAberta === votacao.id ? null : votacao.id
@@ -138,35 +144,51 @@ const Proposicao = () => {
                           ? "Ocultar votos"
                           : "Ver votos"}
                       </Button>
+                    </Flex>
 
-                      {/* LISTA DE VOTOS */}
-                      {votacaoAberta === votacao.id && (
-                        <Box mt={3} w="100%">
-                          {votosLoading ? (
-                            <Spinner />
-                          ) : (
-                            <VStack align="start">
-                              {votosData?.dados?.map((voto) => (
-                                <Text key={voto.deputado_.id}>
-                                  {voto.deputado_.nome} — {voto.tipoVoto}
-                                </Text>
-                              ))}
-                            </VStack>
-                          )}
-                        </Box>
-                      )}
-                    </VStack>
-                  </CardBody>
-                </Box>
-              ))
-            ) : (
-              <Text>Nenhuma votação encontrada.</Text>
-            )}
-          </VStack>
-        )}
+                    {votacaoAberta === votacao.id && (
+                      <Box mt={3}>
+                        {votosLoading ? (
+                          <Spinner />
+                        ) : (
+                          <VStack align="start">
+                            {votosData?.dados?.map((voto) => (
+                              <Text key={voto.deputado_.id}>
+                                {voto.deputado_.nome} — {voto.tipoVoto}
+                              </Text>
+                            ))}
+                          </VStack>
+                        )}
+                      </Box>
+                    )}
+                  </Card.Body>
+                </Card.Root>
+              ))}
+            </VStack>
+          ) : (
+            <Text>Nenhuma votação encontrada.</Text>
+          )}
+        </Box>
       </Box>
-    </>
+    </PageState>
   );
 };
+
+const InfoCard = ({
+  label,
+  value,
+}: {
+  label: string;
+  value?: string;
+}) => (
+  <Card.Root shadow="xs">
+    <Card.Body>
+      <Text fontSize="lg"fontWeight="semibold" color="gray.600">
+        {label}
+      </Text>
+      <Text>{value || "—"}</Text>
+    </Card.Body>
+  </Card.Root>
+);
 
 export default Proposicao;
