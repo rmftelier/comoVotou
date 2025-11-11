@@ -8,6 +8,7 @@ import {
   Accordion,
   Link,
   VStack,
+  Heading
 } from "@chakra-ui/react";
 import { PageState } from "@/components/PageState";
 
@@ -28,13 +29,16 @@ const Glossario = () => {
       isLoading={isLoading}
       isError={isError}
       errorMessage={error?.message}
+      loadingMessage="Carregando termos..."
     >
-      <Text fontSize="5xl" fontWeight="bold" textAlign="center" mb={2}>
-        Glossário Legislativo
-      </Text>
-      <Text fontSize="2xl" textAlign="center" color="gray.600" mb={6}>
-        Entenda os Termos Técnicos do Processo Legislativo
-      </Text>
+      <Box textAlign="center">
+        <Heading size="5xl" fontWeight="bold" mb={2}>
+          Glossário Legislativo
+        </Heading>
+        <Text fontSize="2xl" color="gray.600" mb={6}>
+          Entenda os Termos Técnicos do Processo Legislativo
+        </Text>
+      </Box>
 
       <Input
         placeholder="Buscar por termo ou sigla..."
