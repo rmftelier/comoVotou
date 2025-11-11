@@ -1,10 +1,14 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/🚧%20em%20desenvolvimento-orange?style=for-the-badge" alt="Status do Projeto" />
+  <!-- Front-end -->
+  <img src="https://img.shields.io/badge/React-149ECA?style=for-the-badge&logo=react&logoColor=white" alt="React" />
+  <img src="https://img.shields.io/badge/Chakra%20UI-319795?style=for-the-badge&logo=chakraui&logoColor=white" alt="Chakra UI" />
+  <img src="https://img.shields.io/badge/Deploy-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel" />
+  <!-- Back-end -->
   <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js" />
   <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
   <img src="https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express" />
   <img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB" />
-  <img src="https://img.shields.io/badge/Deploy-Railway-0B0D0E?style=for-the-badge&logo=railway&logoColor=white" alt="Railway" />
+  <img src="https://img.shields.io/badge/API%20Deploy-GCP-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white" alt="GCP" />
 </p>
 
 
@@ -13,12 +17,19 @@
 
 **Como Votou?** é uma plataforma web desenvolvida para facilitar a fiscalização dos representantes políticos no Congresso Nacional.
 
-O sistema utiliza a API [Dados Abertos da Câmara dos Deputados](https://dadosabertos.camara.leg.br/swagger/api.html) para reunir informações sobre as proposições feitas, suas votações e o detalhamento do voto de cada deputado nelas, além de oferecer um glossário de termos legislativos — tornando o acompanhamento político mais acessível e promovendo a participação social no processo democrático.
+A aplicação é dividida em duas partes: 
+
+- **Front-end**: desenvolvido em React com Chakra UI, hospedado na Vercel;
+- **Back-end (API)**: construído em Node.js, com Express, TypeScript e MongoDB, hospedado no Google Cloud Platform (GCP).
+ 
+O sistema consome a API [Dados Abertos da Câmara dos Deputados](https://dadosabertos.camara.leg.br/swagger/api.html) para reunir informações sobre proposições, votações e o voto de cada deputado, além de oferecer um glossário de termos legislativos — tornando o acompanhamento político mais acessível e promovendo a participação social no processo democrático.
 
 
 ### 📑 Sumário
 
 - [Instalação e Execução](#instalação-e-execução)
+   - [API - Back-end](#api---back-end)
+   - [Front-end](#front-end)
 - [Documentação da API](#documentação-da-api)
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 
@@ -26,38 +37,61 @@ O sistema utiliza a API [Dados Abertos da Câmara dos Deputados](https://dadosab
 
 ## Instalação e Execução
 
-1. Clone o repositório:
 
-   ```bash
-    git clone https://github.com/rmftelier/comoVotou
-   ```
+### API - Back-end 
 
-2. Acesse a pasta do projeto:
+  1. Clone o repositório:
+  
+     ```bash
+      git clone https://github.com/rmftelier/comoVotou
+     ```
+  
+  2. Acesse a pasta do projeto:
+  
+     ```bash
+      cd comoVotou/backend
+     ```
+  
+  3. Instale as dependências:
+  
+      ```bash
+       npm install
+      ```
+  
+  4. No arquivo `.env.example` na raiz do projeto, adicione a variável necessária e renomeie-o para `.env`:
+  
+      ```env
+       MONGO_URL=mongodb+srv://<username>:<password>@<cluster-url>/<dbname>?retryWrites=true&w=majority&appName=<appname>
+       PORT=8080
+      ```
+      
+  5. Execute em modo desenvolvimento:
+      ```bash
+       npm run dev
+      ```
+      
+  > [!TIP]
+  > A API é hospedada no Google Cloud Platform.
+  > Para testar localmente, utilize ferramentas como ThunderClient/Postman e para enviar requisições aos endpoints.
 
-   ```bash
-    cd comoVotou
-   ```
+### Front-end
 
-3. Instale as dependências:
-
-    ```bash
-     npm install
-    ```
-
-4. No arquivo `.env.example` na raiz do projeto, adicione a variável necessária e renomeie-o para `.env`:
-
-    ```env
-     MONGO_URL=mongodb+srv://<username>:<password>@<cluster-url>/<dbname>?retryWrites=true&w=majority&appName=<appname>
-    ```
-    
-5. Execute em modo desenvolvimento:
-    ```bash
-     npm run dev
-    ```
-    
-> [!TIP]
-> Para testar as rotas utilize ferramentas como: ThunderClient/Postman e faça as requisições que desejar para testar os endpoints da API.
-
+  1. Acesse a pasta do front-end:
+     ```bash
+       cd ../frontend
+      ```
+  3. Instale as dependências:
+     ```bash
+       npm install
+     ```
+  5. Crie um arquivo `.env` com a URL da API:
+     ```bash
+       VITE_API_URL=https://<sua-api-no-gcp>.app
+     ```
+  7. Inicie o projeto em modo desenvolvimento: 
+     ```bash
+       npm run dev
+     ```
 
 ## Documentação da API 
 
@@ -224,7 +258,8 @@ Retorna todos os termos legislativos cadastrados no banco de dados.
 - **Framework**: Express
 - **Banco de dados**: MongoDB
 - **Integrações**: Axios / Mongoose
-- **Deploy**: Railway
+- **Front-end**: React / Chakra UI
+- **Deploy**: API no Google Cloud Platform (GCP) e Front-end na Vercel
 
 ---
 
