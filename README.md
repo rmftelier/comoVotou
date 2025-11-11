@@ -66,6 +66,7 @@ O sistema consome a API [Dados Abertos da Câmara dos Deputados](https://dadosab
       ```
       
   5. Execute em modo desenvolvimento:
+     
       ```bash
        npm run dev
       ```
@@ -77,18 +78,22 @@ O sistema consome a API [Dados Abertos da Câmara dos Deputados](https://dadosab
 ### Front-end
 
   1. Acesse a pasta do front-end:
+
      ```bash
        cd ../frontend
       ```
   3. Instale as dependências:
+
      ```bash
        npm install
      ```
   5. Crie um arquivo `.env` com a URL da API:
+
      ```bash
        VITE_API_URL=https://<sua-api-no-gcp>.app
      ```
   7. Inicie o projeto em modo desenvolvimento: 
+
      ```bash
        npm run dev
      ```
